@@ -1,0 +1,39 @@
+name: crawl
+
+on: push
+    
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+  
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup Chromedriver
+      uses: nanasess/setup-chromedriver@v1.0.1
+    
+    
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        pip install selenium
+        pip install webdriver_manager
+    - name: Build package
+      run: |
+        python "plz.py"
+    - name: Commits
+      run: |
+        git pull origin main
+        git add .
+        git diff
+        git config --global user.name "chs98412"
+        git config --global user.email "chs98412@gmail.com"
+        git commit -m "csv" # 커밋 메세지
+        git push origin main
