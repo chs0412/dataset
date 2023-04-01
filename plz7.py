@@ -26,9 +26,10 @@ for i in datalist:
     url="https://api.thingiverse.com/things/"+str(int(i))+"?access_token=009771366fb227909df098e04303677c"
     print(url)
     response = requests.get("https://api.thingiverse.com/things/"+i+"?access_token=009771366fb227909df098e04303677c")
-    data=response.json()
+    
     
     try:
+        data=response.json()
         #print(data['creator'])
         params={}
         params["id"]=data["id"]
